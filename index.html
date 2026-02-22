@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="index.js" defer></script>
+
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h2>food + gym</h2>
+    </div>
+
+    <form class="form">
+      <!-- <div> -->
+      <div class="check food-radio">
+        <p>Teve besteira hoje?</p>
+
+        <div>
+          <input type="radio" id="yes" name="foodOption" value="yes" required />
+          <label for="yes">Sim</label>
+        </div>
+
+        <div>
+          <input type="radio" id="no" name="foodOption" value="no" required />
+          <label for="no">Não</label>
+        </div>
+      </div>
+
+      <div class="check gym-radio">
+        <p>Treinou hoje?</p>
+
+        <div>
+          <input type="radio" id="yes" name="gymOption" value="yes" required />
+          <label for="yes">Sim</label>
+        </div>
+
+        <div>
+          <input type="radio" id="no" name="gymOption" value="no" required />
+          <label for="no">Não</label>
+        </div>
+      </div>
+
+      <!-- </div> -->
+      <div class="food-input">
+        <label for="food">Qual foi a comida?</label>
+        <input
+          type="text"
+          id="food"
+          name="food"
+          minlength="1"
+          placeholder="Diga aí"
+        />
+      </div>
+
+      <div>
+        <button type="submit" class="submit-btn">Adicionar</button>
+      </div>
+    </form>
+
+    <ul class="food-list"></ul>
+
+    <!-- <script src="index.js"></script> -->
+  </body>
+</html>
