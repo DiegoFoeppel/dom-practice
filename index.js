@@ -99,7 +99,7 @@ function loadItem(item) {
   svgGym.classList.add("svg-icon");
 
   let svgFoodFill = item.foodOption === "yes" ? "#f03e3e" : "#5ab15a";
-  let svgGymFill = item.gymOption === "yes" ? "#f03e3e" : "#5ab15a";
+  let svgGymFill = item.gymOption === "yes" ? "#5ab15a" : "#f03e3e";
 
   svgGym.innerHTML += `
     <svg
