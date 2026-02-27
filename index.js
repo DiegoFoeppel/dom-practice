@@ -1,3 +1,5 @@
+import { getLocalStorageData, saveData } from "./localStorage";
+
 const form = document.querySelector(".form");
 const btn = document.querySelector(".btn");
 const foodList = document.querySelector(".food-list");
@@ -5,7 +7,7 @@ const yesBtn = document.querySelector("#yes");
 const noBtn = document.querySelector("#no");
 const foodInput = document.querySelector(".food-input input");
 
-// console.log("food Input", foodInput);
+let data = [];
 
 function changeInput(type) {
   if (type === "yes") {
@@ -18,18 +20,8 @@ function changeInput(type) {
 yesBtn.addEventListener("click", () => changeInput("yes"));
 noBtn.addEventListener("click", () => changeInput("no"));
 
-function getLocalStorageData() {
-  const items = JSON.parse(localStorage.getItem("data"));
-  return items ? items : [];
-}
-
-function saveData(data) {
-  localStorage.setItem("data", JSON.stringify(data));
-  loadData();
-}
-
 function deleteItem(item) {
-  const data = getLocalStorageData();
+  // const data = getLocalStorageData();
   const filteredItems = data.filter((food) => item.id !== food.id);
   // novos dados ai salva dnv
   saveData(filteredItems);
@@ -37,43 +29,14 @@ function deleteItem(item) {
   loadData();
 }
 
-function updateData() {}
-
 function loadData() {
   foodList.innerHTML = "";
-
-  const foods = getLocalStorageData();
-
-  // console.log("foods", foods);
-
-  if (foods.length === 0) {
-    localStorage.setItem("data", JSON.stringify([]));
-  }
-
-  // console.log("foods 2", foods);
 
   if (foods !== null) {
     for (const food of foods) {
       loadItem(food);
     }
   }
-}
-
-function formatDate(date) {
-  const data = new Date(date);
-
-  const dia = String(data.getDate()).padStart(2, "0");
-  const mes = String(data.getMonth() + 1).padStart(2, "0"); // Mês começa em 0
-  const ano = data.getFullYear();
-
-  const dataFormatada = `${dia}/${mes}/${ano}`;
-
-  return dataFormatada;
-}
-
-function createSVG() {
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  return svg;
 }
 
 function loadItem(item) {
@@ -199,18 +162,21 @@ function addItem(event) {
     date: new Date(),
   };
 
-  let foods = getLocalStorageData();
+  data.push(item);
 
-  if (foods !== null) {
-    // console.log("foods", foods);
-    const newItems = [...foods, item];
-    // console.log("new items", newItems);
-    saveData(newItems);
-  }
+  saveData(data);
+
+  loadData();
 
   form.reset();
 }
 
 form.addEventListener("submit", addItem);
 
-loadData();
+function main() {
+  data = getLocalStorageData();
+
+  loadData();
+}
+
+main();
