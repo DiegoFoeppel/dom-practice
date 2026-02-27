@@ -1,4 +1,5 @@
-import { getLocalStorageData, saveData } from "./localStorage";
+import { getLocalStorageData, saveData } from "./localStorage.js";
+import { formatDate, createSVG } from "./utils.js";
 
 const form = document.querySelector(".form");
 const btn = document.querySelector(".btn");
@@ -22,9 +23,11 @@ noBtn.addEventListener("click", () => changeInput("no"));
 
 function deleteItem(item) {
   // const data = getLocalStorageData();
-  const filteredItems = data.filter((food) => item.id !== food.id);
+  data = data.filter((food) => item.id !== food.id);
   // novos dados ai salva dnv
-  saveData(filteredItems);
+  saveData(data);
+
+  console.log("data", data);
 
   loadData();
 }
@@ -32,10 +35,9 @@ function deleteItem(item) {
 function loadData() {
   foodList.innerHTML = "";
 
-  if (foods !== null) {
-    for (const food of foods) {
-      loadItem(food);
-    }
+  console.log("data", data);
+  for (const food of data) {
+    loadItem(food);
   }
 }
 
@@ -46,7 +48,7 @@ function loadItem(item) {
   const p1 = document.createElement("p");
   const p3 = document.createElement("p");
 
-  console.log("Item", item);
+  // console.log("Item", item);
 
   const div1 = document.createElement("div");
   div1.appendChild(p1);
@@ -140,11 +142,11 @@ function loadItem(item) {
 function addItem(event) {
   event.preventDefault();
 
-  const data = new FormData(form);
+  const formData = new FormData(form);
 
-  const food = data.get("food");
-  const foodOption = data.get("foodOption");
-  const gymOption = data.get("gymOption");
+  const food = formData.get("food");
+  const foodOption = formData.get("foodOption");
+  const gymOption = formData.get("gymOption");
 
   let content = [
     { food: food },
